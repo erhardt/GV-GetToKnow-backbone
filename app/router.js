@@ -1,12 +1,19 @@
 var GVRouter = Backbone.Router.extend({
   
   routes: {
-    "country/:id": "viewCountry",
+    ":page": "updateCountry",
   },
 
   viewCountry: function(id){
-    console.log("View country requested.");
+    console.log("View country requested:" + id);
     this.navigate(id, true); // updates the fragment and triggers the route as well
+  },
+
+  updateCountry: function(page){
+    if (page != null){
+      $('#gv-country').val(page);
+      splashView.lookupCountry();
+    }
   },
 });
 
