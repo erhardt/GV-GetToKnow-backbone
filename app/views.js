@@ -36,6 +36,7 @@ var SplashView = Backbone.View.extend({
             $('#gv-loading').show();
             this.updateGlobalVoicesContent(rssUrl);
             this.updateBackgroundMap(currentCountry);
+            myRouter.viewCountry(currentCountry);
         }
     },
 
