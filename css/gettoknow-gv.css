@@ -70,8 +70,8 @@ h2 {
     z-index: -1;
 }
 
-#gv-stories {
-    min-height: 400px;
+#gv-stories, #gv-stories2 {
+    min-height: 300px;
 }
 .gv-story {
 }
