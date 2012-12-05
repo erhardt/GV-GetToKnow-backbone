@@ -1,0 +1,13 @@
+var GVRouter = Backbone.Collection.extend({
+
+
+Backbone.sync = function(method, model) {
+  alert(method + ": " + JSON.stringify(model));
+};
+
+var book = new Backbone.Model({
+  title: "The Rough Riders",
+  author: "Theodore Roosevelt"
+});
+
+book.save();

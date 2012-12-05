@@ -5,7 +5,7 @@ var splashView; // HACK: needs to be global so template can access country data
 var SplashView = Backbone.View.extend({
 
     events: {
-      "change #gv-country":    "lookupCountry",
+      "change #gv-country":    "initLookupCountry",
     },
     
     initialize: function(){
@@ -26,18 +26,41 @@ var SplashView = Backbone.View.extend({
         });
     },
     
-    // if the country is a valid one, update the map and content
-    lookupCountry: function(){
+    initLookupCountry: function(){
         var currentCountry = $('#gv-country').val();
+        myRouter.viewCountry(currentCountry);
+    },
+
+    // if the country is a valid one, update the map and content
+    lookupCountry: function(currentCountry){
         if (_.has(this.countryToPath,currentCountry) ){
             rssUrl = "http://globalvoicesonline.org"+this.countryToPath[currentCountry]+"feed";
             $('#gv-country').attr('disabled', 'disabled');
             $('.gv-story').hide();
+            $('#search-count').hide();
             $('#gv-loading').show();
             this.updateGlobalVoicesContent(rssUrl);
             this.updateBackgroundMap(currentCountry);
-            myRouter.viewCountry(currentCountry);
+            this.countryCounter(currentCountry);
         }
+    },
+
+    // adds to database of counts per country stored in data/counts.json and displays number next to search box
+    countryCounter: function(currentCountry){
+        var that = this;
+
+        // NEED TO ADD SERVER FOR FUNCTIONALITY
+
+        var currentCounts = new Counts;
+        jQuery.getJSON("data/counts.json", function(data){
+            var countData = data;
+            currentCounts.set("country", currentCountry);
+            currentCounts.set("count", countData[currentCountry]+1);
+            console.log("got data");
+        });
+
+        $('#search-count').html("Total searches for " + currentCounts.get("country") + ": " + currentCounts.get("count"));
+        $('#search-count').show();
     },
 
     // fetch the latest content from the country's RSS feed

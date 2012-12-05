@@ -6,14 +6,13 @@ var GVRouter = Backbone.Router.extend({
   },
 
   viewCountry: function(id){
-    console.log("View country requested: " + id);
     this.navigate(id, true); // updates the fragment and triggers the route as well
   },
 
   updateCountry: function(page){
-    console.log("Returning to country: " + page);
+    console.log("Country requested: " + page);
     $('#gv-country').val(page);
-    splashView.lookupCountry();
+    splashView.lookupCountry(page);
   },
 
   resetIndex: function(path){
