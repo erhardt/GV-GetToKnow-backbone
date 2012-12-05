@@ -12,7 +12,8 @@ var SplashView = Backbone.View.extend({
     initialize: function(){
         this.loadCountryData();
         this.render();
-        currentCounts = new Counts;
+        currentCounts = new Count({id: 1}); // HACK?: need to specify id of model in LocalStorage
+        currentCounts.fetch();
     },
      
     // render the whole app
@@ -47,14 +48,14 @@ var SplashView = Backbone.View.extend({
         }
     },
 
-    // adds to database of counts per country stored in data/counts.json and displays number next to search box
+    // adds to local storage json database of counts per country and displays number next to search box
     countryCounter: function(currentCountry){
         var that = this;
 
-        // NEED TO ADD SERVER FOR FUNCTIONALITY
-
-        currentCounts.set(currentCountry, currentCounts.get(currentCountry)+1);
-        console.log("got data");
+        // ADD SERVER FOR PERSISTENCE ACROSS USERS FUNCTIONALITY
+        if (currentCounts.save(currentCountry,currentCounts.get(currentCountry)+1)) {
+             console.log("updated data");
+        }
 
         $('#search-count').html("Total searches for " + currentCountry + ": " + currentCounts.get(currentCountry));
         $('#search-count').show();

@@ -1,4 +1,5 @@
-var Counts = Backbone.Model.extend({
+var Count = Backbone.Model.extend({
+    localStorage: new Store("store-counts"),
     defaults: {
 		"Afghanistan":0,
 		"Albania":0,

@@ -18,4 +18,4 @@ Mods #1
 Mods #2
 -------
 
-* Adding functionality to show total searches for each country
+* Added functionality to increment, store, and show the total searches for each country by a user using a LocalStorage database (persists over browser sessions but not across users, which requires a database on a server)
