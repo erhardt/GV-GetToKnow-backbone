@@ -1,4 +1,5 @@
 var splashView; // HACK: needs to be global so template can access country data
+var currentCounts; // HACK: need global access to country count model
 
 (function($){
 
@@ -11,6 +12,7 @@ var SplashView = Backbone.View.extend({
     initialize: function(){
         this.loadCountryData();
         this.render();
+        currentCounts = new Counts;
     },
      
     // render the whole app
@@ -51,15 +53,10 @@ var SplashView = Backbone.View.extend({
 
         // NEED TO ADD SERVER FOR FUNCTIONALITY
 
-        var currentCounts = new Counts;
-        jQuery.getJSON("data/counts.json", function(data){
-            var countData = data;
-            currentCounts.set("country", currentCountry);
-            currentCounts.set("count", countData[currentCountry]+1);
-            console.log("got data");
-        });
+        currentCounts.set(currentCountry, currentCounts.get(currentCountry)+1);
+        console.log("got data");
 
-        $('#search-count').html("Total searches for " + currentCounts.get("country") + ": " + currentCounts.get("count"));
+        $('#search-count').html("Total searches for " + currentCountry + ": " + currentCounts.get(currentCountry));
         $('#search-count').show();
     },
 
